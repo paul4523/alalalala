@@ -1,15 +1,22 @@
 package repo
 
-import "github.com/go-redis/redis"
+import (
+	"fmt"
+	"os"
+
+	"github.com/go-redis/redis"
+)
 
 type Casher struct {
 	Cash redis.Client
 }
 
 func NewCash() Casher {
+	redisHost := os.Getenv("REDIS_HOST")
+	redisPort := os.Getenv("REDIS_PORT")
 	return Casher{
 		Cash: *redis.NewClient(&redis.Options{
-			Addr: "localhost:6379",
+			Addr: fmt.Sprintf("%s:%s", redisHost, redisPort),
 		}),
 	}
 }

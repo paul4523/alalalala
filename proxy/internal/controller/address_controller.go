@@ -15,6 +15,12 @@ type Handler struct {
 	Responder Responder
 }
 
+func NewHandler(r Responder) *Handler {
+	return &Handler{
+		Responder: r,
+	}
+}
+
 func (h *Handler) AddressSearch(w http.ResponseWriter, r *http.Request) {
 	var req model.RequestAddressSearch
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -22,7 +28,7 @@ func (h *Handler) AddressSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	addresses, err := h.Responder.AddressSearch(req.Query)
+	addresses, err := h.Responder.Cash(req.Query)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

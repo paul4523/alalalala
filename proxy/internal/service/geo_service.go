@@ -40,6 +40,7 @@ func (s *Service) Cash(input string) ([]*model.Address, error) {
 	metrics.CacheDuration.WithLabelValues("Cash").Observe(time.Since(start).Seconds())
 
 	if err == redis.Nil {
+		log.Println("from API")
 		start = time.Now()
 		bodys, err := s.AddressSearch(input)
 		metrics.APIDuration.WithLabelValues("AddressSearch").Observe(time.Since(start).Seconds())
@@ -61,7 +62,7 @@ func (s *Service) Cash(input string) ([]*model.Address, error) {
 		log.Println(err)
 		return nil, err
 	}
-
+	log.Println("from cache")
 	err = json.Unmarshal([]byte(body), &res)
 	if err != nil {
 		log.Println(err)

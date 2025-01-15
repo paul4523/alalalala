@@ -9,8 +9,8 @@ import (
 func main() {
 	repo := repo.NewCash()
 	service := service.New(repo)
-	handler := controller.Handler{Responder: &service}
-	r := controller.NewRouter(&handler)
+	handler := controller.NewHandler(&service)
+	r := controller.NewRouter(handler)
 	server := controller.NewServer(":8080", r)
 	go server.Serve()
 	server.Shutdown()
