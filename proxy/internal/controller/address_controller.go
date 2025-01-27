@@ -3,7 +3,9 @@ package controller
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
+	"proxy/internal/metrics"
 	"proxy/internal/model"
 )
 
@@ -23,6 +25,7 @@ func NewHandler(r Responder) *Handler {
 
 func (h *Handler) AddressSearch(w http.ResponseWriter, r *http.Request) {
 	var req model.RequestAddressSearch
+	start := time.Now()
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -38,4 +41,7 @@ func (h *Handler) AddressSearch(w http.ResponseWriter, r *http.Request) {
 	if err := response.Respond(w, r); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+
+	metrics.RequestDuration.WithLabelValues("/api/address/search").Observe(time.Since(start).Seconds())
+	metrics.RequestCount.WithLabelValues("/api/address/search").Inc()
 }

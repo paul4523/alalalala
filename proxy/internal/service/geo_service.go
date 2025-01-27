@@ -37,13 +37,13 @@ func (s *Service) Cash(input string) ([]*model.Address, error) {
 
 	start := time.Now()
 	body, err := s.Casher.Get(string(jsoninput))
-	metrics.CacheDuration.WithLabelValues("Cash").Observe(time.Since(start).Seconds())
+	metrics.CacheDuration.Observe(time.Since(start).Seconds())
 
 	if err == redis.Nil {
 		log.Println("from API")
 		start = time.Now()
 		bodys, err := s.AddressSearch(input)
-		metrics.APIDuration.WithLabelValues("AddressSearch").Observe(time.Since(start).Seconds())
+		metrics.ApiDuration.Observe(time.Since(start).Seconds())
 		if err != nil {
 			log.Println(err)
 			return nil, err
@@ -54,9 +54,7 @@ func (s *Service) Cash(input string) ([]*model.Address, error) {
 			return nil, err
 		}
 
-		start = time.Now()
 		s.Casher.Set(string(jsoninput), jsonbody)
-		metrics.CacheDuration.WithLabelValues("Cash").Observe(time.Since(start).Seconds())
 		return bodys, nil
 	} else if err != nil {
 		log.Println(err)
@@ -73,9 +71,7 @@ func (s *Service) Cash(input string) ([]*model.Address, error) {
 
 func (s *Service) AddressSearch(input string) ([]*model.Address, error) {
 	var res []*model.Address
-	start := time.Now()
 	rawRes, err := s.api.Address(context.Background(), &suggest.RequestParams{Query: input})
-	metrics.APIDuration.WithLabelValues("AddressSearch").Observe(time.Since(start).Seconds())
 	if err != nil {
 		return nil, err
 	}
