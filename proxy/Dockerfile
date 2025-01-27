@@ -15,6 +15,8 @@ RUN go build -o main
 
 # Начинаем новую стадию сборки на основе минимального образа
 FROM alpine:latest
+FROM grafana/grafana:latest
+COPY ./your-custom-config /etc/grafana/
 
 # Добавляем исполняемый файл из первой стадии в корневую директорию контейнера
 COPY --from=builder /app/cmd/main /main
