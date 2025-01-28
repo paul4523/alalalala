@@ -9,3 +9,9 @@ providers:
     editable: true
     options:
       path: /var/lib/grafana/dashboards
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
