@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -103,11 +103,15 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "sum(rate(cache_request_duration_seconds_sum[5m])) / sum(rate(cache_request_duration_seconds_count[5m]))\n",
+          "expr": "sum(rate(api_request_duration_seconds_sum[5m])) / sum(rate(api_request_duration_seconds_count[5m]))\n",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "title": "Panel Title",
@@ -177,7 +181,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 1,
       "options": {
@@ -201,7 +205,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(cache_request_duration_seconds_bucket[1m])) by (le))\n",
+          "expr": "histogram_quantile(0.5, sum(rate(api_request_duration_seconds_bucket[1m])) by (le))\n",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -215,15 +219,20 @@
     }
   ],
   "preload": false,
+  "refresh": "",
   "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
   },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
   "timepicker": {},
   "timezone": "",
-  "title": "Cache time",
-  "uid": "beb9zxbzyh1j4b",
-  "version": 1,
+  "title": "Api Time",
+  "uid": "aeb9cpktu5ipsa",
+  "version": 2,
   "weekStart": ""
 }

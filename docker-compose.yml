@@ -36,10 +36,12 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./proxy/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./proxy/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./proxy/grafana/dashboards:/var/lib/grafana/dashboards
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
+
 
 volumes:
   redis_data:

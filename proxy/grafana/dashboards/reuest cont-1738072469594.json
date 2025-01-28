@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -104,8 +104,8 @@
       "targets": [
         {
           "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "sum(rate(api_request_duration_seconds_sum[5m])) / sum(rate(api_request_duration_seconds_count[5m]))\n",
+          "editorMode": "builder",
+          "expr": "http_request_count",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -181,7 +181,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 1,
       "options": {
@@ -204,8 +204,8 @@
             "uid": "eea8h3vxbfmrkf"
           },
           "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.5, sum(rate(api_request_duration_seconds_bucket[1m])) by (le))\n",
+          "editorMode": "builder",
+          "expr": "http_request_count",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -219,20 +219,15 @@
     }
   ],
   "preload": false,
-  "refresh": "",
   "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": []
   },
-  "time": {
-    "from": "now-5m",
-    "to": "now"
-  },
   "timepicker": {},
   "timezone": "",
-  "title": "Api Time",
-  "uid": "aeb9cpktu5ipsa",
-  "version": 1,
+  "title": "reuest cont",
+  "uid": "eeb9zxbvsn4sge",
+  "version": 2,
   "weekStart": ""
 }

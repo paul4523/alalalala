@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -103,15 +103,11 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "http_request_count",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "editorMode": "code",
+          "expr": "sum(rate(cache_request_duration_seconds_sum[5m])) / sum(rate(cache_request_duration_seconds_count[5m]))\n",
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A",
-          "useBackend": false
+          "refId": "A"
         }
       ],
       "title": "Panel Title",
@@ -181,7 +177,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 1,
       "options": {
@@ -204,8 +200,8 @@
             "uid": "eea8h3vxbfmrkf"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "http_request_count",
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.5, sum(rate(cache_request_duration_seconds_bucket[1m])) by (le))\n",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -226,8 +222,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "reuest cont",
-  "uid": "eeb9zxbvsn4sge",
-  "version": 1,
+  "title": "Cache time",
+  "uid": "beb9zxbzyh1j4b",
+  "version": 2,
   "weekStart": ""
 }
